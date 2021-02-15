@@ -6,7 +6,7 @@ defmodule LiveComponentJsIssueWeb.CounterComponent do
   end
 
   def update(%{id: id, counter: counter}, socket) do
-    {:ok, socket |> assign(id: id, counter: counter) |> push_event("increased", %{id: id})}
+    {:ok, socket |> assign(id: id, counter: counter) |> push_event("ping", %{id: id})}
   end
 
   def render(assigns) do
