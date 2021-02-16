@@ -1,14 +1,20 @@
 defmodule LiveComponentJsIssueWeb.CounterComponent do
-  use LiveComponentJsIssueWeb, :live_component
+  use LiveComponentJsIssueWeb, :live_view
 
-  def mount(socket) do
-    {:ok, socket |> assign(counter: 0)}
+  @impl true
+  def mount(_params, %{"counter" => counter} = session, %Phoenix.LiveView.Socket{id: id} = socket) do
+    if connected?(socket) do
+      send(socket.parent_pid, {:child_pid, self()})
+    end
+    {:ok, socket |> assign(counter: counter, id: id)}
   end
 
-  def update(%{id: id, counter: counter}, socket) do
-    {:ok, socket |> assign(id: id, counter: counter) |> push_event("ping", %{id: id})}
+  @impl true
+  def handle_info("inc", socket) do
+    {:noreply, assign(socket, counter: socket.assigns.counter + 1) |> push_event("ping", %{id: socket.assigns.id})}
   end
 
+  @impl true
   def render(assigns) do
     ~L"""
     <div id="dom-id-<%= @id %>" phx-hook="Counter" data-id="counter-<%= @id %>"><%= @id %>: <%= @counter %></div>
