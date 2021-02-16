@@ -11,7 +11,7 @@ defmodule LiveComponentJsIssueWeb.CounterComponent do
 
   def render(assigns) do
     ~L"""
-    <div phx-hook="Counter" data-id="counter-<%= @id %>"><%= @id %>: <%= @counter %></div>
+    <div id="dom-id-<%= @id %>" phx-hook="Counter" data-id="counter-<%= @id %>"><%= @id %>: <%= @counter %></div>
     """
   end
 
