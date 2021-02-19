@@ -13,6 +13,11 @@ defmodule LiveComponentJsIssueWeb.Counter do
   end
 
   @impl true
+  def handle_info({"ping", id}, socket) do
+    {:noreply, push_event(socket, "ping", %{id: id})}
+  end
+
+  @impl true
   def render(assigns) do
     ~L"""
     <div>counter=<%= @counter %></div>
