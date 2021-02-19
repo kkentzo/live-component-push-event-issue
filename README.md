@@ -20,3 +20,16 @@
 - click on `INC` button
 - all counters (global and components) are updated
 - in JS console, both hook objects print the payload as coming from `component-b`
+
+### Resolution
+
+This issue has been discussed in this [forum
+topic](https://elixirforum.com/t/js-hooks-do-not-receive-the-expected-events-from-their-corresponding-live-components/37562).
+
+It is [indeed a bug in live
+view](https://elixirforum.com/t/js-hooks-do-not-receive-the-expected-events-from-their-corresponding-live-components/37562/5?u=kkentzo)
+that has now been fixed.
+
+The best workaround is to send the message from the component to the
+live view and then down to the hook (see [this
+commit](https://github.com/kkentzo/live-component-push-event-issue/compare/workaround-send-message-through-liveview)).
